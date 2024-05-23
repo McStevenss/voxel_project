@@ -11,6 +11,8 @@ class Player:
         self.pitch = 40
         self.angle_vel = 0.02
         self.vel = 3
+        self.is_flying = False
+        self.player_height = 10
 
     def update(self):
         sin_a = math.sin(self.angle)
@@ -44,3 +46,6 @@ class Player:
         if pressed_key[pg.K_d]:
             self.pos[0] -= self.vel/2 * sin_a
             self.pos[1] += self.vel/2 * cos_a
+
+        if pressed_key[pg.K_SPACE]:
+            self.is_flying = not self.is_flying

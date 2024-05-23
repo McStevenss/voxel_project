@@ -25,7 +25,7 @@ class App:
             self.draw()
 
             [exit() for i in pg.event.get() if i.type == pg.QUIT]
-            self.clock.tick(60)
+            self.clock.tick(100)
             pg.display.set_caption(f'FPS: {self.clock.get_fps()}')
 
 

@@ -4,11 +4,11 @@ import numpy as np
 import math
 
 #height_map_img = pg.image.load('img/height_map.jpg')
-height_map_img = pg.image.load('img/D10_b.png')
+height_map_img = pg.image.load('img/D10_1.png')
 height_map = pg.surfarray.array3d(height_map_img)
 
 #color_map_img = pg.image.load('img/color_map.jpg')
-color_map_img = pg.image.load('img/C10_b.png')
+color_map_img = pg.image.load('img/C10.png')
 color_map = pg.surfarray.array3d(color_map_img)
 
 map_height = len(height_map[0])
@@ -19,7 +19,8 @@ map_width = len(height_map)
 def ray_casting(screen_array, player_pos, player_angle, player_height, player_pitch,
                      screen_width, screen_height, delta_angle, ray_distance, h_fov, scale_height):
 
-    screen_array[:] = np.array([0, 0, 0])
+    # screen_array[:] = np.array([0, 0, 0])
+    screen_array[:] = np.array([119, 241, 255])
     y_buffer = np.full(screen_width, screen_height)
 
     ray_angle = player_angle - h_fov
@@ -66,12 +67,15 @@ class VoxelRender:
         self.h_fov = self.fov / 2
         self.num_rays = app.width
         self.delta_angle = self.fov / self.num_rays
-        self.ray_distance = 2000
-        self.scale_height = 920
-        self.screen_array = np.full((app.width, app.height, 3), (0, 0, 0))
+        self.ray_distance = 2500
+        # self.scale_height = 920
+        self.scale_height = 220
+        self.screen_array = np.full((app.width, app.height, 3), (119, 241, 255))
 
     def update(self):
-        self.player.height = height_map[int(self.player.pos[0]), int(self.player.pos[1])][0]+5
+        if not self.player.is_flying:
+            self.player.height = height_map[int(self.player.pos[0]), int(self.player.pos[1])][0] + self.player.player_height
+
         self.screen_array = ray_casting(self.screen_array, self.player.pos, self.player.angle,
                                         self.player.height, self.player.pitch, self.app.width,
                                         self.app.height, self.delta_angle, self.ray_distance,
