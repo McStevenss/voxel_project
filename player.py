@@ -12,7 +12,7 @@ class Player:
         self.angle_vel = 0.02
         self.vel = 3
         self.is_flying = False
-        self.player_height = 10
+        self.player_height = 20
 
     def update(self):
         sin_a = math.sin(self.angle)

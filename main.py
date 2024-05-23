@@ -5,7 +5,7 @@ from voxel_render import VoxelRender
 
 class App:
     def __init__(self):
-        self.res = self.width, self.height = (1000, 560)
+        self.res = self.width, self.height = (640*2, 360*2)
         self.screen = pg.display.set_mode(self.res, pg.SCALED)
         self.clock = pg.time.Clock()
         self.player = Player()
