@@ -4,6 +4,7 @@
 
 //COMPILE WITH:
 // gcc -shared -o raycasting.so -fPIC raycast.c -lm
+// gcc -shared -o raycasting.dll raycast.c -lm -O2 <- on windows, -O2 is important!!!
 
 // LIMITED EDITION
 

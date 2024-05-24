@@ -4,7 +4,8 @@ import numpy as np
 
 # Load the shared library
 # lib = ctypes.CDLL('./raycasting.so')  # Use './raycasting.dll' on Windows
-lib = ctypes.CDLL('c_compiled/raycasting.so')  # Use './raycasting.dll' on Windows
+lib = ctypes.CDLL('c_compiled/raycasting.dll')  # Use './raycasting.dll' on Windows
+# lib = ctypes.CDLL('c_compiled/raycasting.so')  # Use './raycasting.dll' on Windows
 
 # Define the argument and return types of the C function
 lib.ray_casting.argtypes = [
