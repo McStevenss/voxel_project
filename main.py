@@ -1,11 +1,12 @@
 import pygame as pg
 from player import Player
-from voxel_render import VoxelRender
-
+# from voxel_render import VoxelRender
+from voxel_render_c import VoxelRender
+from settings import GAME_SETTINGS
 
 class App:
     def __init__(self):
-        self.res = self.width, self.height = (640*2, 360*2)
+        self.res = self.width, self.height = GAME_SETTINGS["resolution"]
         self.screen = pg.display.set_mode(self.res, pg.SCALED)
         self.clock = pg.time.Clock()
         self.player = Player()
@@ -14,6 +15,11 @@ class App:
     def update(self):
         self.player.update()
         self.voxel_render.update()
+
+        pg.event.set_grab(self.player.lock_mouse)
+        pg.mouse.set_visible(not self.player.lock_mouse)
+        mouse_rel = pg.mouse.get_rel()
+        self.player.handle_mouse(mouse_rel)
 
     def draw(self):
         self.voxel_render.draw()
@@ -26,7 +32,7 @@ class App:
 
             [exit() for i in pg.event.get() if i.type == pg.QUIT]
             self.clock.tick(100)
-            pg.display.set_caption(f'FPS: {self.clock.get_fps()}')
+            pg.display.set_caption(f'VOXELIA | FPS: {int(self.clock.get_fps())}')
 
 
 if __name__ == '__main__':
