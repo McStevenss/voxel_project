@@ -1,16 +1,27 @@
 import pygame as pg
 from player import Player
-# from voxel_render import VoxelRender
-from voxel_render_c import VoxelRender
 from settings import GAME_SETTINGS
+from hud import HUD
+
+if GAME_SETTINGS["Use_compiled_renderer"]:
+    from voxel_render_c import VoxelRender
+else:
+    from voxel_render import VoxelRender
+
 
 class App:
     def __init__(self):
         self.res = self.width, self.height = GAME_SETTINGS["resolution"]
-        self.screen = pg.display.set_mode(self.res, pg.SCALED)
+
+        if GAME_SETTINGS["hardware_scaled"]:
+            self.screen = pg.display.set_mode(self.res, pg.SCALED)
+        else:
+            self.screen = pg.display.set_mode(self.res)
+
         self.clock = pg.time.Clock()
         self.player = Player()
         self.voxel_render = VoxelRender(self)
+        self.hud = HUD(screen=self.screen, height_map_img=self.voxel_render.height_map_img, color_map_img=self.voxel_render.color_map_img, player=self.player)
 
     def update(self):
         self.player.update()
@@ -23,6 +34,7 @@ class App:
 
     def draw(self):
         self.voxel_render.draw()
+        self.hud.draw()
         pg.display.flip()
 
     def run(self):

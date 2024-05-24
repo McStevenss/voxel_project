@@ -22,12 +22,15 @@ lib.ray_casting.argtypes = [
     ctypes.POINTER(ctypes.c_uint8),  # height_map
     ctypes.POINTER(ctypes.c_uint8),  # color_map
     ctypes.c_int,                    # map_width
-    ctypes.c_int                     # map_height
+    ctypes.c_int,                    # map_height
+
+    ctypes.POINTER(ctypes.c_uint8),  # fog_color
+    ctypes.c_double,                 # fog_density
 ]
 
 def call_ray_casting(screen_array, player_pos, player_angle, player_height, player_pitch,
                      screen_width, screen_height, delta_angle, ray_distance, h_fov, scale_height,
-                     height_map, color_map, map_width, map_height):
+                     height_map, color_map, map_width, map_height,fog_color, fog_density):
     
     # Convert numpy arrays to ctypes pointers
     screen_array_ctypes = screen_array.ctypes.data_as(ctypes.POINTER(ctypes.c_uint8))
@@ -35,10 +38,14 @@ def call_ray_casting(screen_array, player_pos, player_angle, player_height, play
     height_map_channel = height_map[:, :, 0]
     height_map_ctypes = height_map_channel.flatten().ctypes.data_as(ctypes.POINTER(ctypes.c_uint8))
     color_map_ctypes = color_map.ctypes.data_as(ctypes.POINTER(ctypes.c_uint8))
+
+      # Handle fog color
+    fog_color_array = (ctypes.c_uint8 * 3)(*fog_color)
+    fog_color_ctypes = ctypes.cast(fog_color_array, ctypes.POINTER(ctypes.c_uint8))
     
     # Call the C function
     lib.ray_casting(screen_array_ctypes, player_pos_ctypes, player_angle, player_height, player_pitch,
                     screen_width, screen_height, delta_angle, ray_distance, h_fov, scale_height,
-                    height_map_ctypes, color_map_ctypes, map_width, map_height)
+                    height_map_ctypes, color_map_ctypes, map_width, map_height, fog_color_ctypes, fog_density)
 
 

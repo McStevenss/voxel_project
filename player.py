@@ -17,9 +17,19 @@ class Player:
         self.mouse_x_sensitivity = MOUSE_CONTROLS["mouse_x_sensitivity"]
         self.lock_mouse = False
 
+        self.pitch_tresh = 220
+        self.pitch_up_offset = 150
+
+
     def handle_mouse(self, mouse_rel):
         self.angle += mouse_rel[0] * self.mouse_x_sensitivity
         self.pitch -= mouse_rel[1] * self.mouse_y_sensitivity
+
+        if self.pitch < -self.pitch_tresh:
+            self.pitch = -self.pitch_tresh
+
+        if self.pitch > self.pitch_tresh + self.pitch_up_offset:
+            self.pitch = self.pitch_tresh + self.pitch_up_offset
 
     def update(self):
         sin_a = math.sin(self.angle)
@@ -66,4 +76,4 @@ class Player:
             print("bye!")
             exit()
 
-        
+
