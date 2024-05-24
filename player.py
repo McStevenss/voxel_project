@@ -1,7 +1,7 @@
 import pygame as pg
 import numpy as np
 import math
-from settings import GAME_CONTROLS, MOUSE_CONTROLS
+from settings import GAME_CONTROLS, MOUSE_CONTROLS, GAME_SETTINGS
 
 class Player:
     def __init__(self):
@@ -12,7 +12,7 @@ class Player:
         self.angle_vel = 0.02
         self.vel = 3
         self.is_flying = False
-        self.player_height = 20
+        self.player_height = GAME_SETTINGS["player_height"]
         self.mouse_y_sensitivity = MOUSE_CONTROLS["mouse_y_sensitivity"]
         self.mouse_x_sensitivity = MOUSE_CONTROLS["mouse_x_sensitivity"]
         self.lock_mouse = False

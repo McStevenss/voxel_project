@@ -2,7 +2,7 @@ import pygame as pg
 from player import Player
 from settings import GAME_SETTINGS
 from hud import HUD
-
+from sprite import Sprite   
 if GAME_SETTINGS["Use_compiled_renderer"]:
     from voxel_render_c import VoxelRender
 else:

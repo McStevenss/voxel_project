@@ -7,13 +7,14 @@ GAME_SETTINGS = {
     "render_distance": 1500,
     "sky_color":       (119, 241, 255),
     "height_scale":    200,
-    # "height_map":      "img/D10_1.png",
-    # "color_map":       "img/C10.png",
-    "height_map":      "img/height_map.jpg",
-    "color_map":       "img/color_map.jpg",
+    # "height_map":      "img/height_map_3.png",
+    "height_map":      "img/gimp_h.png",
+    "color_map":       "img/gimp_c.png",
     "hardware_scaled": True,
-    "Use_compiled_renderer": True
+    "Use_compiled_renderer": True,
+    "player_height": 40
 }
+
 GAME_CONTROLS = {
     "look_up":      pg.K_UP,
     "look_down":    pg.K_DOWN,
